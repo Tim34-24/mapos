@@ -1,0 +1,11 @@
+streamlit>=1.35.0
+geopandas>=0.14.0
+fiona>=1.9.0
+shapely>=2.0.0
+requests>=2.31.0
+contextily>=1.5.0
+matplotlib>=3.8.0
+numpy>=1.26.0
+PyYAML>=6.0
+py7zr>=0.21.0
+tqdm>=4.66.0
