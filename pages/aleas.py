@@ -347,7 +347,7 @@ def _fetch_alea(alea_id: str, codes: list, config: dict) -> dict:
                     "COUNT": "2000",
                 }, timeout=30)
                 if r.ok and r.content:
-                    gdf = gpd.read_file(r.content)
+                    gdf = gpd.read_file(io.BytesIO(r.content), engine="pyogrio")
                     return {"nb": len(gdf), "data": gdf.to_json(), "type": "geojson"}
             except Exception as e:
                 return {"nb": 0, "erreur": str(e), "data": None}
@@ -367,7 +367,7 @@ def _fetch_alea(alea_id: str, codes: list, config: dict) -> dict:
                     "COUNT": "5000",
                 }, timeout=30)
                 if r.ok and r.content:
-                    gdf = gpd.read_file(r.content)
+                    gdf = gpd.read_file(io.BytesIO(r.content), engine="pyogrio")
                     return {"nb": len(gdf), "data": gdf.to_json(), "type": "geojson"}
             except Exception as e:
                 return {"nb": 0, "erreur": str(e), "data": None}

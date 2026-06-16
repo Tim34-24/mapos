@@ -113,20 +113,20 @@ def _generer_gpkg(codes: list, donnees: dict, actif: str) -> bytes | None:
         if geometries:
             gdf_com = gpd.GeoDataFrame.from_features(geometries, crs="EPSG:4326")
             gdf_com = gdf_com.to_crs(epsg=2154)
-            gdf_com.to_file(buf, layer="communes", driver="GPKG")
+            gdf_com.to_file(buf, layer="communes", driver="GPKG", engine="pyogrio")
 
             perim = gdf_com.dissolve().reset_index(drop=True)
             perim["nom_epci"] = actif
-            perim.to_file(buf, layer="perimetre_intercommunal", driver="GPKG")
+            perim.to_file(buf, layer="perimetre_intercommunal", driver="GPKG", engine="pyogrio")
 
         # Couches aléas (geojson)
         for cle, meta in donnees.items():
             if meta.get("type") == "geojson" and meta.get("data") and meta.get("nb",0) > 0:
                 try:
-                    gdf = gpd.read_file(io.StringIO(meta["data"]))
+                    gdf = gpd.read_file(io.BytesIO(meta["data"].encode()), engine="pyogrio")
                     if len(gdf) > 0:
                         gdf = gdf.to_crs(epsg=2154)
-                        gdf.to_file(buf, layer=cle, driver="GPKG")
+                        gdf.to_file(buf, layer=cle, driver="GPKG", engine="pyogrio")
                 except Exception:
                     pass
 

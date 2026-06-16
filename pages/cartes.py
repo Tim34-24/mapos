@@ -211,7 +211,7 @@ def _generer_carte(carte_id, actif, codes, donnees, format_papier, orientation, 
             for cle in couches_inond:
                 if cle in donnees and donnees[cle].get("data") and donnees[cle].get("type") == "geojson":
                     try:
-                        gdf = gpd.read_file(io.StringIO(donnees[cle]["data"]))
+                        gdf = gpd.read_file(io.BytesIO(donnees[cle]["data"].encode()), engine="pyogrio")
                         if len(gdf) > 0:
                             gdf = gdf.to_crs(epsg=3857)
                             couleur, _, label = COULEURS_ALEAS.get(cle, ("#888","#aaa","Aléa"))
@@ -224,7 +224,7 @@ def _generer_carte(carte_id, actif, codes, donnees, format_papier, orientation, 
             for cle in ["mvt_terrain","cavites","rga"]:
                 if cle in donnees and donnees[cle].get("data") and donnees[cle].get("type") == "geojson":
                     try:
-                        gdf = gpd.read_file(io.StringIO(donnees[cle]["data"]))
+                        gdf = gpd.read_file(io.BytesIO(donnees[cle]["data"].encode()), engine="pyogrio")
                         if len(gdf) > 0:
                             gdf = gdf.to_crs(epsg=3857)
                             couleur, _, label = COULEURS_ALEAS.get(cle, ("#888","#aaa","Aléa"))
@@ -238,7 +238,7 @@ def _generer_carte(carte_id, actif, codes, donnees, format_papier, orientation, 
                 if cle in donnees and donnees[cle].get("data"):
                     if donnees[cle].get("type") == "geojson":
                         try:
-                            gdf = gpd.read_file(io.StringIO(donnees[cle]["data"]))
+                            gdf = gpd.read_file(io.BytesIO(donnees[cle]["data"].encode()), engine="pyogrio")
                             if len(gdf) > 0:
                                 gdf = gdf.to_crs(epsg=3857)
                                 couleur, _, label = COULEURS_ALEAS.get(cle, ("#888","#aaa","Aléa"))
@@ -264,7 +264,7 @@ def _generer_carte(carte_id, actif, codes, donnees, format_papier, orientation, 
             for cle, (couleur, _, label) in COULEURS_ALEAS.items():
                 if cle in donnees and donnees[cle].get("data") and donnees[cle].get("type") == "geojson":
                     try:
-                        gdf = gpd.read_file(io.StringIO(donnees[cle]["data"]))
+                        gdf = gpd.read_file(io.BytesIO(donnees[cle]["data"].encode()), engine="pyogrio")
                         if len(gdf) > 0:
                             gdf = gdf.to_crs(epsg=3857)
                             gdf.plot(ax=ax, color=couleur, alpha=0.45, zorder=6)
