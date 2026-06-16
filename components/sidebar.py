@@ -29,7 +29,7 @@ def render_sidebar() -> str:
             </div>
             <div style="font-size:11px;color:{C['textFaint']};margin-top:3px;
                         text-transform:uppercase;letter-spacing:0.09em">
-                par Sildaro
+                
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -68,11 +68,12 @@ def render_sidebar() -> str:
             st.session_state.territoire_actif = None
             st.rerun()
 
-        # Version
+        # Version — en flux normal, pas en position absolue
         st.markdown(f"""
-        <div style="position:absolute;bottom:1rem;left:1rem;right:1rem;
+        <div style="margin-top:2rem;padding-top:1rem;
+                    border-top:0.5px solid {C['border']};
                     font-size:11px;color:{C['textFaint']};text-align:center">
-            MapOS v0.1 · Données IGN / Géorisques
+            MapOS v0.1 · IGN / Géorisques
         </div>
         """, unsafe_allow_html=True)
 

@@ -415,6 +415,6 @@ def topbar(territoire: str = None):
             Map<span style="color:{C['red']}">OS</span><span class="mapos-logo-dot"></span>
         </div>
         {terr_html}
-        <span class="mapos-small" style="color:{C['textFaint']}">par Sildaro</span>
+        <span class="mapos-small" style="color:{C['textFaint']}"></span>
     </div>
     """, unsafe_allow_html=True)
